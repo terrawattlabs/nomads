@@ -66,13 +66,13 @@ app.get('/welcome', (req, res) => {
     var automatic_code = req.query.code;
 
     var dataObj = {
-      "client_id": "e2a8e01cbed8378693d5",
-      "client_secret" : "8dc63ba465926f9f18954a4726ce76e400b3a38d",
+      "client_id": "c24caca06ff7d9008e0f",
+      "client_secret" : "b05d51a932fb6a24ba6fb3b415d6644f065e6146",
       "code" : automatic_code,
       "grant_type" : "authorization_code"
        };
 
-    var dataString = "client_secret=8dc63ba465926f9f18954a4726ce76e400b3a38d&code=" + automatic_code + "&client_id=e2a8e01cbed8378693d5&grant_type=authorization_code";
+    var dataString = "client_secret=b05d51a932fb6a24ba6fb3b415d6644f065e6146&code=" + automatic_code + "&client_id=c24caca06ff7d9008e0f&grant_type=authorization_code";
     
     //res.send(automatic_code);
 
@@ -89,7 +89,7 @@ app.get('/welcome', (req, res) => {
         var jsonbody = JSON.parse(body);
        // console.log(jsonbody);
 
-
+       console.log(err);
         output(jsonbody,err);
     });
 
