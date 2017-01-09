@@ -138,21 +138,13 @@ app.get('/email', (req, res) => {
   var helper = require('sendgrid').mail;
       var from_email = new helper.Email('jpdean@umich.edu');
       var to_email = new helper.Email('hello@jackpdean.com');
-      var subject = 'Hello World from the SendGrid Node.js Library!';
-      var content = new helper.Content('text/plain', 'Hello, Email!');
+      var subject = 'I\'m replacing the subject tag';
+      var content = new helper.Content(
+        'text/html', 'I\'m replacing the <strong>body tag</strong>');
       var mail = new helper.Mail(from_email, subject, to_email, content);
-
-      var rq = sg.emptyRequest({
-            method: 'POST',
-            path: '/v3/mail/send',
-            body: mail.toJSON(),
-          });
-
-          sg.API(rq, function(error, response) {
-            console.log(response.statusCode);
-            console.log(response.body);
-            console.log(response.headers);
-          });
+      mail.personalizations[0].addSubstitution(
+        new helper.Substitution('-example-', 'Hello World'));
+      mail.setTemplateId('5adcc19c-9a0c-450e-80be-f43975b69c89');
 
 
   res.send("tried to send the email");
