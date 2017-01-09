@@ -166,6 +166,13 @@ app.get('/email', (req, res) => {
 
 app.get('/map', (req, res) => {
 
+var publicConfig = {
+  key: 'AIzaSyDiOSPmb7JRFHMBmLcG53-aLxcNiHnyu6Y',
+  stagger_time:       1000, // for elevationPath
+  encode_polylines:   false,
+  secure:             true
+};
+
 var gmAPI = new GoogleMapsAPI();
 var params = {
   center: '444 W Main St Lock Haven PA',
