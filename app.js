@@ -2,7 +2,15 @@ const express = require('express');
 const session = require('express-session');
 
 var request = require('request');
+var schedule = require('node-schedule');
 var url = require('url');
+
+
+var sg = require('sendgrid')("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");
+
+
+
+
 const port = process.env.PORT || 3000;
 const app = express();
 
@@ -56,6 +64,7 @@ app.get('/redirect', (req, res) => {
     code: code
   }, saveToken);
 });
+
 
 app.get('/welcome', (req, res) => {
 
@@ -134,3 +143,35 @@ app.get('/', (req, res) => {
 app.listen(port);
 
 console.log('Express server started on port ' + port);
+
+//below schedules emails to be sent out
+
+var rule = new schedule.RecurrenceRule();
+rule.minute = [0,15,30,45];
+ 
+var j = schedule.scheduleJob(rule, function(){
+      console.log('scheduled job ran');
+
+      var helper = require('sendgrid').mail;
+      var from_email = new helper.Email('jpdean@umich.edu');
+      var to_email = new helper.Email('hello@jackpdean.com');
+      var subject = 'Hello World from the SendGrid Node.js Library!';
+      var content = new helper.Content('text/plain', 'Hello, Email!');
+      var mail = new helper.Mail(from_email, subject, to_email, content);
+
+      var rq = sg.emptyRequest({
+            method: 'POST',
+            path: '/v3/mail/send',
+            body: mail.toJSON(),
+          });
+
+          sg.API(rq, function(error, response) {
+            console.log(response.statusCode);
+            console.log(response.body);
+            console.log(response.headers);
+          });
+
+  }); // end schedule.schedule job function
+
+
+
