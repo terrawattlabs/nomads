@@ -5,7 +5,7 @@ var request = require('request');
 var schedule = require('node-schedule');
 var url = require('url');
 
-var GoogleMapsAPI = require('node-modules/googlemaps/lib/index');
+var GoogleMapsAPI = require('../node-modules/googlemaps/lib/index.js');
 
 
 var sg = require('sendgrid')("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");
@@ -180,6 +180,7 @@ var params = {
   center: '444 W Main St Lock Haven PA',
   zoom: 15,
   size: '500x400',
+  format: 'png',
   maptype: 'roadmap',
   markers: [
     {
