@@ -5,7 +5,7 @@ var request = require('request');
 var schedule = require('node-schedule');
 var url = require('url');
 
-var GoogleMapsAPI = require('../node-modules/googlemaps/lib/index.js');
+var GoogleMapsAPI = require('GoogleMapsAPI');
 
 
 var sg = require('sendgrid')("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");
