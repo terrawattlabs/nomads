@@ -133,6 +133,33 @@ app.get('/welcome', (req, res) => {
 });
 
 
+app.get('/email', (req, res) => {
+
+  var helper = require('sendgrid').mail;
+      var from_email = new helper.Email('jpdean@umich.edu');
+      var to_email = new helper.Email('hello@jackpdean.com');
+      var subject = 'Hello World from the SendGrid Node.js Library!';
+      var content = new helper.Content('text/plain', 'Hello, Email!');
+      var mail = new helper.Mail(from_email, subject, to_email, content);
+
+      var rq = sg.emptyRequest({
+            method: 'POST',
+            path: '/v3/mail/send',
+            body: mail.toJSON(),
+          });
+
+          sg.API(rq, function(error, response) {
+            console.log(response.statusCode);
+            console.log(response.body);
+            console.log(response.headers);
+          });
+
+
+  res.send("tried to send the email");
+
+
+});
+
 
 // Main page of app with link to log in
 app.get('/', (req, res) => {
@@ -172,6 +199,9 @@ var j = schedule.scheduleJob(rule, function(){
           });
 
   }); // end schedule.schedule job function
+
+
+
 
 
 
