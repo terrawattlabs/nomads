@@ -146,6 +146,18 @@ app.get('/email', (req, res) => {
         new helper.Substitution('-example-', 'Hello World'));
       mail.setTemplateId('5adcc19c-9a0c-450e-80be-f43975b69c89');
 
+       var rq = sg.emptyRequest({
+            method: 'POST',
+            path: '/v3/mail/send',
+            body: mail.toJSON(),
+          });
+
+          sg.API(rq, function(error, response) {
+            console.log(response.statusCode);
+            console.log(response.body);
+            console.log(response.headers);
+          });
+
 
   res.send("tried to send the email");
 
