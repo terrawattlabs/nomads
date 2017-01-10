@@ -158,9 +158,11 @@ function buildTemplate () {
    }
  };
   newsletter.render(user, function (err, result) {
+       console.log(err);
+
        ex = result.html;
        console.log(result.html);
-       console.log(err);
+       
             var helper = require('sendgrid').mail;
             var from_email = new helper.Email('jpdean@umich.edu');
             var to_email = new helper.Email('hello@jackpdean.com');
