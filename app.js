@@ -5,7 +5,9 @@ var request = require('request');
 var schedule = require('node-schedule');
 var url = require('url');
 
-var GoogleMapsAPI = require('GoogleMapsAPI');
+var EmailTemplate = require('email-templates').EmailTemplate;
+var path = require('path');
+
 
 
 var sg = require('sendgrid')("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");
@@ -137,15 +139,29 @@ app.get('/welcome', (req, res) => {
 
 app.get('/email', (req, res) => {
 
-  var helper = require('sendgrid').mail;
-      var from_email = new helper.Email('jpdean@umich.edu');
-      var to_email = new helper.Email('hello@jackpdean.com');
+    // setup a new mail message
+   var helper = require('sendgrid').mail;
+  var from_email = new helper.Email('jpdean@umich.edu');
+  var to_email = new helper.Email('hello@jackpdean.com');
+
+
+  // generate the template
+  var templateDir = path.join(__dirname, 'templates', 'weekly');
+  var newsletter = new EmailTemplate(templateDir)
+  var user = {name: 'Joe', pasta: 'spaghetti'}
+  newsletter.render(user, function (err, result) {
+
       var subject = 'I\'m replacing the subject tag';
       var content = new helper.Content(
-        'text/html', 'I\'m replacing the <strong>body tag</strong>');
+        'text/html', result.html);
+  // result.html 
+  // result.text 
+  });
+
+
       var mail = new helper.Mail(from_email, subject, to_email, content);
-      mail.personalizations[0].addSubstitution(
-        new helper.Substitution('-example-', 'Hello World'));
+
+     
       mail.setTemplateId('5adcc19c-9a0c-450e-80be-f43975b69c89');
 
        var rq = sg.emptyRequest({
@@ -166,65 +182,6 @@ app.get('/email', (req, res) => {
 
 });
 
-app.get('/map', (req, res) => {
-
-var publicConfig = {
-  key: 'AIzaSyDiOSPmb7JRFHMBmLcG53-aLxcNiHnyu6Y',
-  stagger_time:       1000, // for elevationPath
-  encode_polylines:   false,
-  secure:             true
-};
-
-var gmAPI = new GoogleMapsAPI(publicConfig);
-var params = {
-  center: '444 W Main St Lock Haven PA',
-  zoom: 15,
-  size: '500x400',
-  format: 'png',
-  maptype: 'roadmap',
-  markers: [
-    {
-      location: '300 W Main St Lock Haven, PA',
-      label   : 'A',
-      color   : 'green',
-      shadow  : true
-    },
-    {
-      location: '444 W Main St Lock Haven, PA',
-      icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=cafe%7C996600'
-    }
-  ],
-  style: [
-    {
-      feature: 'road',
-      element: 'all',
-      rules: {
-        hue: '0x00ff00'
-      }
-    }
-  ],
-  path: [
-    {
-      color: '0x0000ff',
-      weight: '5',
-      points: [
-        '41.139817,-77.454439',
-        '41.138621,-77.451596'
-      ]
-    }
-  ]
-};
-gmAPI.staticMap(params); // return static map URL
-gmAPI.staticMap(params, function(err, binaryImage) {
-  console.log(binaryImage);
-  res.send(binaryImage);
-
-  // fetch asynchronously the binary image
-});
-
-  
-
-});
 
 
 // Main page of app with link to log in
