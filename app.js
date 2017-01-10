@@ -140,8 +140,6 @@ app.get('/welcome', (req, res) => {
 app.get('/email', (req, res) => {
 
 
-
-function buildTemplate () {
    // setup a new mail message
       
       var content;
@@ -174,13 +172,6 @@ function buildTemplate () {
   // result.html 
   // result.text 
   });
-
-}; // end build template function
-
-buildTemplate();
-
-
-
 
   function sendCompiledMail (m, c){
     var rq = sg.emptyRequest({
