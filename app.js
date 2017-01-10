@@ -140,10 +140,7 @@ app.get('/welcome', (req, res) => {
 app.get('/email', (req, res) => {
 
     // setup a new mail message
-      var helper = require('sendgrid').mail;
-      var from_email = new helper.Email('jpdean@umich.edu');
-      var to_email = new helper.Email('hello@jackpdean.com');
-      var subject = 'Hello World from the SendGrid Node.js Library!';
+      
       var content;
       var ex;
 
@@ -155,9 +152,13 @@ app.get('/email', (req, res) => {
        ex = result.html;
        console.log(result.html);
        console.log(err);
-       content = new helper.content(
-        'text/html', result.html);
-       var mail = new helper.Mail(from_email, subject, to_email, content);
+            var helper = require('sendgrid').mail;
+            var from_email = new helper.Email('jpdean@umich.edu');
+            var to_email = new helper.Email('hello@jackpdean.com');
+            var subject = 'Hello World from the SendGrid Node.js Library!';
+            var content = new helper.content(
+              'text/html', result.html);
+             var mail = new helper.Mail(from_email, subject, to_email, content);
        sendCompiledMail(mail, result.html);
   // result.html 
   // result.text 
