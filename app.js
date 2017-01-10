@@ -140,7 +140,22 @@ app.get('/welcome', (req, res) => {
 app.get('/email', (req, res) => {
 
 
-   // setup a new mail message
+function buildMap (){
+  var baseURL = 'https://maps.googleapis.com/maps/api/staticmap?';
+  var center = "Denver";
+  var zoom = "13";
+  var size = "600x343";
+  var type = 'roadmap';
+  var key = "AIzaSyB3oJKic9ULZQc0duyVqEubBrrlOPS4ktg";
+  var marker = "color:blue%7Clabel:S%7C40.702147,-74.015794";
+
+  var mapURL = baseURL + "center=" + center + "&size=" + size + "&maptype=" + type + "&zoom=" + zoom + "&markers=" + marker + "&key=" + key;
+  buildTemplate(mapURL);
+};
+
+
+function buildTemplate (map){
+  // setup a new mail message
       
       var content;
       var ex;
@@ -148,14 +163,11 @@ app.get('/email', (req, res) => {
   // generate the template
   var templateDir = path.join(__dirname, 'templates', 'weekly');
   var newsletter = new EmailTemplate(templateDir)
-  var user = {name:
-   {
-    first: 'joe',
-    last: 'pasta',
-    imgURL: 'https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x343&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyB3oJKic9ULZQc0duyVqEubBrrlOPS4ktg'
-   }
- };
-  newsletter.render(user, function (err, result) {
+  var data = {
+    username: "weresovancy",
+    imgURL: map
+   };
+  newsletter.render(data, function (err, result) {
        console.log(err);
 
        ex = result.html;
@@ -172,6 +184,10 @@ app.get('/email', (req, res) => {
   // result.html 
   // result.text 
   });
+
+
+}; 
+   
 
   function sendCompiledMail (m, c){
     var rq = sg.emptyRequest({
