@@ -139,7 +139,22 @@ app.get('/welcome', (req, res) => {
 
 app.get('/email', (req, res) => {
 
-    // setup a new mail message
+
+function getMap () {
+  request('https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyB3oJKic9ULZQc0duyVqEubBrrlOPS4ktg', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body); // Show the HTML for the Modulus homepage.
+    };
+
+  console.log(response);
+  console.log(body);
+    });
+};
+
+getMap();
+
+function buildTemplate () {
+   // setup a new mail message
       
       var content;
       var ex;
@@ -150,7 +165,8 @@ app.get('/email', (req, res) => {
   var user = {name:
    {
     first: 'joe',
-    last: 'pasta'
+    last: 'pasta',
+    imgURL: 'http://static.sendgrid.com.s3.amazonaws.com/emails/internal/Underwood-Blue/headerimage.jpg'
    }
  };
   newsletter.render(user, function (err, result) {
@@ -164,10 +180,15 @@ app.get('/email', (req, res) => {
             var content = new helper.Content(
               'text/html', result.html);
              var mail = new helper.Mail(from_email, subject, to_email, content);
-       sendCompiledMail(mail, result.html);
+            sendCompiledMail(mail, result.html);
   // result.html 
   // result.text 
-  });    
+  });
+
+}; // end build template function
+   
+
+
 
 
   function sendCompiledMail (m, c){
@@ -204,15 +225,15 @@ console.log('Express server started on port ' + port);
 
 //below schedules emails to be sent out
 
-var rule = new schedule.RecurrenceRule();
-rule.minute = [0,15,30,45];
+// var rule = new schedule.RecurrenceRule();
+// rule.minute = [0,15,30,45];
  
-var j = schedule.scheduleJob(rule, function(){
-      console.log('scheduled job ran');
+// var j = schedule.scheduleJob(rule, function(){
+//       console.log('scheduled job ran');
 
       
 
-  }); // end schedule.schedule job function
+//   }); // end schedule.schedule job function
 
 
 
