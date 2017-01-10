@@ -153,6 +153,8 @@ function buildMap (){
   buildTemplate(mapURL);
 };
 
+buildMap();
+
 
 function buildTemplate (map){
   // setup a new mail message
