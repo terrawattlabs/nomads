@@ -153,6 +153,8 @@ app.get('/email', (req, res) => {
   var user = {name: 'Joe', pasta: 'spaghetti'}
   newsletter.render(user, function (err, result) {
        ex = result.html;
+       console.log(result.html);
+       console.log(err);
        content = new helper.Content(
         'text/html', result.html);
        var mail = new helper.Mail(from_email, subject, to_email, content);
