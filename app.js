@@ -155,7 +155,7 @@ app.get('/email', (req, res) => {
        ex = result.html;
        console.log(result.html);
        console.log(err);
-       content = new helper.Content(
+       content = new helper.contentnt(
         'text/html', result.html);
        var mail = new helper.Mail(from_email, subject, to_email, content);
        sendCompiledMail(mail, result.html);
@@ -176,8 +176,9 @@ app.get('/email', (req, res) => {
             console.log(response.body);
             console.log(response.headers);
           });
-};
     res.send(c);
+};
+    
 
 });
 
