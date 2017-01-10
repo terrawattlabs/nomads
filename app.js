@@ -156,18 +156,13 @@ app.get('/email', (req, res) => {
        content = new helper.Content(
         'text/html', result.html);
        var mail = new helper.Mail(from_email, subject, to_email, content);
-       sendCompiledMail(mail);
+       sendCompiledMail(mail, result.html);
   // result.html 
   // result.text 
   });    
 
-  res.status(200).send(ex);
 
-
-});
-
-
-function sendCompiledMail (m){
+  function sendCompiledMail (m, c){
     var rq = sg.emptyRequest({
             method: 'POST',
             path: '/v3/mail/send',
@@ -180,6 +175,12 @@ function sendCompiledMail (m){
             console.log(response.headers);
           });
 };
+    res.send(c);
+
+});
+
+
+
 
 
 // Main page of app with link to log in
