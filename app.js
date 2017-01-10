@@ -143,7 +143,7 @@ app.get('/email', (req, res) => {
    var helper = require('sendgrid').mail;
   var from_email = new helper.Email('jpdean@umich.edu');
   var to_email = new helper.Email('hello@jackpdean.com');
-  var subject;
+  var subject = "hello from Jack!";
   var content;
 
   // generate the template
@@ -152,7 +152,6 @@ app.get('/email', (req, res) => {
   var user = {name: 'Joe', pasta: 'spaghetti'}
   newsletter.render(user, function (err, result) {
 
-       subject = 'I\'m replacing the subject tag';
        content = new helper.Content(
         'text/html', result.html);
   // result.html 
@@ -162,8 +161,6 @@ app.get('/email', (req, res) => {
 
       var mail = new helper.Mail(from_email, subject, to_email, content);
 
-     
-      mail.setTemplateId('5adcc19c-9a0c-450e-80be-f43975b69c89');
 
        var rq = sg.emptyRequest({
             method: 'POST',
