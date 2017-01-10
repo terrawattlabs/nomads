@@ -147,7 +147,12 @@ app.get('/email', (req, res) => {
   // generate the template
   var templateDir = path.join(__dirname, 'templates', 'weekly');
   var newsletter = new EmailTemplate(templateDir)
-  var user = {name: 'Joe', pasta: 'spaghetti'}
+  var user = {name:
+   {
+    first: 'joe',
+    last: 'pasta'
+   }
+ };
   newsletter.render(user, function (err, result) {
        ex = result.html;
        console.log(result.html);
