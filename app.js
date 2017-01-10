@@ -145,13 +145,14 @@ app.get('/email', (req, res) => {
       var to_email = new helper.Email('hello@jackpdean.com');
       var subject = 'Hello World from the SendGrid Node.js Library!';
       var content;
+      var ex;
 
   // generate the template
   var templateDir = path.join(__dirname, 'templates', 'weekly');
   var newsletter = new EmailTemplate(templateDir)
   var user = {name: 'Joe', pasta: 'spaghetti'}
   newsletter.render(user, function (err, result) {
-
+       ex = result.html;
        content = new helper.Content(
         'text/html', result.html);
        var mail = new helper.Mail(from_email, subject, to_email, content);
@@ -160,7 +161,8 @@ app.get('/email', (req, res) => {
   // result.text 
   });    
 
-  res.send("tried to send the email");
+  res.status(200).send(ex);
+  };
 
 
 });
