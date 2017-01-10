@@ -140,11 +140,11 @@ app.get('/welcome', (req, res) => {
 app.get('/email', (req, res) => {
 
     // setup a new mail message
-   var helper = require('sendgrid').mail;
-  var from_email = new helper.Email('jpdean@umich.edu');
-  var to_email = new helper.Email('hello@jackpdean.com');
-  var subject = "hello from Jack!";
-  var content;
+      var helper = require('sendgrid').mail;
+      var from_email = new helper.Email('jpdean@umich.edu');
+      var to_email = new helper.Email('hello@jackpdean.com');
+      var subject = 'Hello World from the SendGrid Node.js Library!';
+      var content;
 
   // generate the template
   var templateDir = path.join(__dirname, 'templates', 'weekly');
@@ -154,18 +154,23 @@ app.get('/email', (req, res) => {
 
        content = new helper.Content(
         'text/html', result.html);
+       var mail = new helper.Mail(from_email, subject, to_email, content);
+       sendCompiledMail(mail);
   // result.html 
   // result.text 
-  });
+  });    
+
+  res.send("tried to send the email");
 
 
-      var mail = new helper.Mail(from_email, subject, to_email, content);
+});
 
 
-       var rq = sg.emptyRequest({
+function sendCompiledMail (m){
+    var rq = sg.emptyRequest({
             method: 'POST',
             path: '/v3/mail/send',
-            body: mail.toJSON(),
+            body: m.toJSON(),
           });
 
           sg.API(rq, function(error, response) {
@@ -173,13 +178,7 @@ app.get('/email', (req, res) => {
             console.log(response.body);
             console.log(response.headers);
           });
-
-
-  res.send("tried to send the email");
-
-
-});
-
+};
 
 
 // Main page of app with link to log in
@@ -200,24 +199,7 @@ rule.minute = [0,15,30,45];
 var j = schedule.scheduleJob(rule, function(){
       console.log('scheduled job ran');
 
-      var helper = require('sendgrid').mail;
-      var from_email = new helper.Email('jpdean@umich.edu');
-      var to_email = new helper.Email('hello@jackpdean.com');
-      var subject = 'Hello World from the SendGrid Node.js Library!';
-      var content = new helper.Content('text/plain', 'Hello, Email!');
-      var mail = new helper.Mail(from_email, subject, to_email, content);
-
-      var rq = sg.emptyRequest({
-            method: 'POST',
-            path: '/v3/mail/send',
-            body: mail.toJSON(),
-          });
-
-          sg.API(rq, function(error, response) {
-            console.log(response.statusCode);
-            console.log(response.body);
-            console.log(response.headers);
-          });
+      
 
   }); // end schedule.schedule job function
 
