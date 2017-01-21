@@ -244,7 +244,7 @@ console.log('Express server started on port ' + port);
 
 
 var rule = new schedule.RecurrenceRule();
-rule.minute = [0,15,30,45];
+rule.minute = [0,15,30,45,48,49,50,51,52,53,54,55];
  
 var j = schedule.scheduleJob(rule, function(){
   var lte = moment().subtract(1, 'minutes').format("x");
