@@ -267,7 +267,7 @@ var j = schedule.scheduleJob(rule, function(){
         var lat = jsonbody.results[0].end_location.lat;
         var lon = jsonbody.results[0].end_location.lon;
 
-        createIcon(lat,long);
+        createIcon(lat,lon);
 
        // console.log(jsonbody);
 
