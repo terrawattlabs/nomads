@@ -5,8 +5,8 @@ var request = require('request');
 var schedule = require('node-schedule');
 var url = require('url');
 
-  const Stamplay = require("stamplay");
-  const stamplay = new Stamplay("nomads", "febd530624058ec0ad071f5c9b2b1de2f80094d14000e320547fbf81ace1824e");
+var Stamplay = require("stamplay");
+var stamplay = new Stamplay("nomads", "febd530624058ec0ad071f5c9b2b1de2f80094d14000e320547fbf81ace1824e");
 
 var EmailTemplate = require('email-templates').EmailTemplate;
 var path = require('path');
@@ -267,6 +267,7 @@ var j = schedule.scheduleJob(rule, function(){
         var lat = jsonbody.results[0].end_location.lat;
         var lon = jsonbody.results[0].end_location.lon;
 
+        console.log(lat);
         createIcon(lat,lon);
 
        // console.log(jsonbody);
