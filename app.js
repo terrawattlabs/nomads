@@ -273,7 +273,6 @@ var j = schedule.scheduleJob(rule, function(){
        // console.log(jsonbody);
 
         console.log(err);
-        output(jsonbody,err);
     });
       
 
@@ -300,7 +299,7 @@ function createIcon (lat, lon) {
     console.log(error);
     console.log(result);
 });
-  
+
 };
 
 
