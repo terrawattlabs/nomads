@@ -246,7 +246,7 @@ console.log('Express server started on port ' + port);
 
 
 var rule = new schedule.RecurrenceRule();
-rule.minute = [0,1,2,3,4,5,15,30,45,55,56,57,58,59];
+rule.minute = [0,1,2,3,4,5,6,7,8,9,10,15,30,45];
  
 var j = schedule.scheduleJob(rule, function(){
   var lte = moment().subtract(1, 'minutes').format("x");
@@ -296,12 +296,11 @@ function createIcon (lat, lon) {
     description: ""
   };
 
-  stamplay.Object("place").save(data)
-    .then(function(res) {
-        console.log(res);
-      }, function(err) {
-      // error
-    })
+  stamplay.Object('place').save(data, function(error, result){
+    console.log(error);
+    console.log(result);
+});
+  
 };
 
 
