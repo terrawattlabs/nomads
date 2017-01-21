@@ -5,6 +5,9 @@ var request = require('request');
 var schedule = require('node-schedule');
 var url = require('url');
 
+  const Stamplay = require("stamplay");
+  const stamplay = new Stamplay("nomads", "febd530624058ec0ad071f5c9b2b1de2f80094d14000e320547fbf81ace1824e");
+
 var EmailTemplate = require('email-templates').EmailTemplate;
 var path = require('path');
 
@@ -147,9 +150,10 @@ function buildMap (){
   var size = "600x343";
   var type = 'roadmap';
   var key = "AIzaSyB3oJKic9ULZQc0duyVqEubBrrlOPS4ktg";
+  var marker = "color:blue%7Clabel:S%7C40.702147,-74.015794";
   var path = "ewxrFxcydSYIIf@Gb@dF~ACDEHEDMHo@\q@^e@TC?aBc@G^QxA\@X?R?@AF?JCHAPGLELGJGVQNGJ?D?D@D@FB@@\Zf@_Ab@s@h@_Az@yAr@sAVc@l@oARc@Rk@Nc@HWNg@\sAtAyFXmAb@iBPo@\yAtAeGLk@?A@OXiAPm@X}@Ro@Vq@^cAtBgF`D}HhAmCn@}AnB{Ef@mANYN]Ra@JSR]Xc@LQRYPUZ]`AkAdBqBFCPQpA{AlAyAx@_AzAiBdBqBNQ|AiBf@m@hAkAp@q@TUr@m@r@i@LITOROJENIf@Ux@_@n@WkK|GGFFIEF";
 
-  var mapURL = baseURL + "&size=" + size + "&maptype=" + type + "&path=" + path + "&key=" + key;
+  var mapURL = baseURL + "&size=" + size + "&maptype=" + type + "&markers=" + marker + "&key=" + key;
   buildTemplate(mapURL);
 };
 
@@ -234,6 +238,68 @@ console.log('Express server started on port ' + port);
       
 
 //   }); // end schedule.schedule job function
+
+//below schedules emails to be sent out
+
+
+
+var rule = new schedule.RecurrenceRule();
+rule.minute = [0,15,30,45];
+ 
+var j = schedule.scheduleJob(rule, function(){
+  var lte = moment().subtract(1, 'minutes').format("x");
+  var gte = moment().subtract(3, 'days').format("x");
+  var fullUrl = "https://api.automatic.com/trip/?started_at__gte=" + gte + "&ended_at__lte=" + lte + "&vehicle=C_410fcc4bbc9a30a5&limit=5";
+  var bearer_token = 'Bearer ' + "1660ee2dbf9614edab00b01bb163c4ef4f7e0300";
+
+  request.get(
+    {url: fullUrl, 
+      headers: {
+        'Authorization': bearer_token
+      }
+    }, 
+      function(err,httpResponse,body){
+
+        //console.log(httpResponse);
+        var jsonbody = JSON.parse(body);
+        var lat = jsonbody.results[0].end_location.lat;
+        var lon = jsonbody.results[0].end_location.lon;
+
+        createIcon(lat,long);
+
+       // console.log(jsonbody);
+
+        console.log(err);
+        output(jsonbody,err);
+    });
+      
+
+  }); // end schedule.schedule job function
+
+function createIcon (lat, lon) {
+
+    var title = "Sleeping Night of " + moment().subtract(1, "days").format("dddd, MMMM Do YYYY");
+    var date = moment();
+
+    var data = {
+    "coords": {
+      "latitude": lat,
+      "longitude": lon
+    },
+    icon : "images/icons/sleeping.png",
+    name: title,
+    date: date,
+    owner: "58657d99884b37210884b2e5",
+    description: ""
+  };
+
+  Stamplay.Object("place").save(data)
+    .then(function(res) {
+        console.log(res);
+      }, function(err) {
+      // error
+    })
+};
 
 
 
