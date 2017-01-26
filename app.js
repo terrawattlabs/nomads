@@ -195,11 +195,11 @@ function createMarkers () {
           var placeDate = moment(res.data[i].date);
           var lTracking = 0;
             if (placeDate >= gt && placeDate <= lt) {
-            var letter = getLetter(lTracking);
-            markerString = markerString + "&markers=color:blue|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
-            places.push(res.data[i]);
-            places[i].letter = letter;
-            lTracking = lTracking + 1;
+              var letter = getLetter(lTracking);
+              markerString = markerString + "&markers=color:blue|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
+              places.push(res.data[i]);
+              places[i].letter = letter;
+              lTracking = lTracking + 1;
             } else {
          
           }
