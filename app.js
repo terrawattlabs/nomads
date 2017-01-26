@@ -168,7 +168,7 @@ function compilePath (encodedPath) {
   var p = ""
   for (var i = 0; i < ary.length; i++) {
     
-    p = p + "|" ary[i][0] + "," + ary[i][1];
+    p = p + "|" + ary[i][0] + "," + ary[i][1];
   };
   return p
 };
