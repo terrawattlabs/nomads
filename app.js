@@ -186,26 +186,23 @@ function createMarkers () {
     .exec(function(err, res) {
       //console.log(res);
 
-     places = res.data;
-      for (var i = 0; i < places.length; i++) {
+      for (var i = 0; i < res.data.length; i++) {
 
 
           var gt = moment().subtract(10, 'days');
           var lt = moment().subtract(3, 'days');
 
-          var placeDate = moment(places[i].date);
-
+          var placeDate = moment(res.data[i].date);
+          var lTracking = 0;
             if (placeDate >= gt && placeDate <= lt) {
-            console.log(places[i].name + "   -    " + i);
-            var letter = getLetter(i);
-            markerString = markerString + "&markers=color:blue|label:" + letter + "|" + places[i].coords.latitude + "," + places[i].coords.longitude;
+            var letter = getLetter(lTracking);
+            markerString = markerString + "&markers=color:blue|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
+            places.push(res.data[i]);
             places[i].letter = letter;
+            lTracking = lTracking + 1;
             } else {
          
           }
-
-
-
          
       }
 
