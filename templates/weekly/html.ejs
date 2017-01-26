@@ -158,17 +158,19 @@
 </tr>
 </table>
 
-<% for(var i=0; i<p.length; i++) {%>
+
 <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0"  width="100%" style="table-layout: fixed;" data-attributes='%7B%22dropped%22%3Atrue%2C%22child%22%3Afalse%2C%22padding%22%3A%220%2C0%2C51%2C0%22%2C%22containerbackground%22%3A%22%23ffffff%22%7D'>
+<% for(var i=0; i<p.length; i++) {%>
 <tr>
   <td role="module-content"  valign="top" height="100%" style="padding: 0px 0px 51px 0px;" bgcolor="#ffffff"> <div><span style="font-size: 22px;"><%= i + 1 %> <%= p[i].prettyDate %> <%= p[i].name %></span></div> <div>&nbsp;</div>
 
   <div><%= p[i].description %></div>
  <div>&nbsp;</div> <div><a href="http://nomads.stamplayapp.com/#/profile/weresovancy"><i>See More&gt;&gt;</i></a></div> </td>
 </tr>
+<% } %>
 </table>
 
-<% } %>
+
 
 
 
