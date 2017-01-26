@@ -160,7 +160,7 @@ function buildMap (){
 
   var string_new = encodedPath.replace("\\\\", "\\")
 
-  var mapURL = baseURL + "&size=" + size + "&maptype=" + type + markers + "&path=color:0x0000ff|weight:5|enc:" + string_new + "&key=" + key;
+  var mapURL = baseURL + "&size=" + size + "&maptype=" + type + markers + "&path=color:0x0000ff|weight:5|" + path + "&key=" + key;
   buildTemplate(mapURL);
 };
 
@@ -184,18 +184,13 @@ function createMarkers () {
   stamplay.Query('object','place')
     .greaterThan('date', d)
     .lessThan('date', m)
-    .exec()
-    .then(function(res) {
+    .exec(function(err, res) {
       console.log(res);
       var places = res.data;
       for (var i = 0; i < places.length; i++) {
           markerString = markerString + "&markers=color:blue|label:" + i + "|" + places[i].coords.latitude + "," + places[i].coords.longitude
       }
       return markerString;
-      // success
-    }, function(err) {
-      console.log(err);
-      // error
     })
 };
 
