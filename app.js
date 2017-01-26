@@ -10,7 +10,7 @@ var stamplay = new Stamplay("nomads", "febd530624058ec0ad071f5c9b2b1de2f80094d14
 
 var EmailTemplate = require('email-templates').EmailTemplate;
 var path = require('path');
-
+var polyline = require('polyline');
 var moment = require('moment');
 
 
@@ -153,13 +153,26 @@ function buildMap (){
   var type = 'roadmap';
   var key = "AIzaSyB3oJKic9ULZQc0duyVqEubBrrlOPS4ktg";
   var marker = "color:blue%7Clabel:S%7C31.74032,-106.32685";
-  var path = "}mx`Ept`hStC|BgEfIXTYf@_B~C}@`BYh@@d@@F@D@Bl@f@FBFBD?D?PCnCkFvDcH`@y@l@kAl@oArD_HvCsF|C{FVe@pCeFrEwIlByDz@}Ap@oA\s@PYZm@JS^s@f@_AlEkIt@qAj@gA|BeEn@iAd@{@HOBG@E?GACHMBCfAiB";
+
+  var encodedPath = "}mx`Ept`hStC|BgEfIXTYf@_B~C}@`BYh@@d@@F@D@Bl@f@FBFBD?D?PCnCkFvDcH`@y@l@kAl@oArD_HvCsF|C{FVe@pCeFrEwIlByDz@}Ap@oA\s@PYZm@JS^s@f@_AlEkIt@qAj@gA|BeEn@iAd@{@HOBG@E?GACHMBCfAiB";
+  var path = compilePath(encodedPath);
 
   var mapURL = baseURL + "&size=" + size + "&maptype=" + type + "&markers=" + marker + "&key=" + key;
   buildTemplate(mapURL);
 };
 
 buildMap();
+
+function compilePath (encodedPath) {
+  var ary = polyline.decode(encodedPath);
+  var p = ""
+  for (var i = 0; i < ary.length; i++) {
+    
+    p = p + ary[i][0] + "," + ary[i][1];
+    console.log(p);
+  };
+  return p
+};
 
 
 function buildTemplate (map){
