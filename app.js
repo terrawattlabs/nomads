@@ -157,7 +157,7 @@ function buildMap (){
   var encodedPath = "}mx`Ept`hStC|BgEfIXTYf@_B~C}@`BYh@@d@@F@D@Bl@f@FBFBD?D?PCnCkFvDcH`@y@l@kAl@oArD_HvCsF|C{FVe@pCeFrEwIlByDz@}Ap@oA\s@PYZm@JS^s@f@_AlEkIt@qAj@gA|BeEn@iAd@{@HOBG@E?GACHMBCfAiB";
   var path = compilePath(encodedPath);
 
-  var mapURL = baseURL + "&size=" + size + "&maptype=" + type + "&markers=" + marker + "&path=color:0x0000ff|weight:5|enc=" + encodedPath + "&key=" + key;
+  var mapURL = baseURL + "&size=" + size + "&maptype=" + type + "&markers=" + marker + "&path=color:0x0000ff|weight:5|enc:" + encodedPath + "&key=" + key;
   buildTemplate(mapURL);
 };
 
@@ -191,7 +191,7 @@ function buildTemplate (map){
        console.log(err);
 
        ex = result.html;
-       console.log(result.html);
+      // console.log(result.html);
        
             var helper = require('sendgrid').mail;
             var from_email = new helper.Email('jpdean@umich.edu');
