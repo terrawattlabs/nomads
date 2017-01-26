@@ -177,21 +177,36 @@ function compilePath (encodedPath) {
 var places;
 
 function createMarkers () {
-  var d = moment().subtract(10, 'days').toDate();
-  var m = moment().subtract(3, 'days').toDate();
+  var d = moment().subtract(10, 'days');
+  var m = moment().subtract(3, 'days');
   var markerString = "";
 
   stamplay.Query('object','place')
-    .greaterThan('date', d)
-    .lessThan('date', m)
     .sortAscending("date")
     .exec(function(err, res) {
       //console.log(res);
 
      places = res.data;
       for (var i = 0; i < places.length; i++) {
-          var number = i + 1;
-          markerString = markerString + "&markers=color:blue|label:" + number + "|" + places[i].coords.latitude + "," + places[i].coords.longitude
+
+
+          var gt = moment().subtract(10, 'days');
+          var lt = moment().subtract(3, 'days');
+
+          var placeDate = moment(places[i].date);
+
+            if (placeDate >= gt && placeDate <= lt) {
+            console.log(places[i].name + "   -    " + i);
+            var letter = getLetter(i);
+            markerString = markerString + "&markers=color:blue|label:" + letter + "|" + places[i].coords.latitude + "," + places[i].coords.longitude;
+            places[i].letter = letter;
+            } else {
+         
+          }
+
+
+
+         
       }
 
       buildMap(markerString);
@@ -200,6 +215,14 @@ function createMarkers () {
 
 createMarkers();
 
+
+function getLetter(x) {
+  var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"];
+
+  return letters[x];
+
+
+};
 
 function buildTemplate (map){
   // setup a new mail message
