@@ -209,7 +209,13 @@ function buildTemplate (map){
 
   // generate the template
   var templateDir = path.join(__dirname, 'templates', 'weekly');
-  var newsletter = new EmailTemplate(templateDir)
+  var newsletter = new EmailTemplate(templateDir);
+
+  for (var i = places.length - 1; i >= 0; i--) {
+    var t = moment(places[i].date).format("MMM Do");
+    places[i].prettyDate = t;
+  };
+
   var data = {
     username: "weresovancy",
     imgURL: map,
