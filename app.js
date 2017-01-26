@@ -186,19 +186,18 @@ function createMarkers () {
     .exec(function(err, res) {
       //console.log(res);
 
+      var lTracking = 0;
       for (var i = 0; i < res.data.length; i++) {
-
-
           var gt = moment().subtract(10, 'days');
           var lt = moment().subtract(3, 'days');
 
           var placeDate = moment(res.data[i].date);
-          var lTracking = 0;
+          
             if (placeDate >= gt && placeDate <= lt) {
               var letter = getLetter(lTracking);
               markerString = markerString + "&markers=color:blue|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
               places.push(res.data[i]);
-              //places[i].letter = letter;
+              places[i].let = letter;
               lTracking = lTracking + 1;
             } else {
          
