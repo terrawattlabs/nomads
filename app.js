@@ -145,14 +145,13 @@ app.get('/welcome', (req, res) => {
 app.get('/email', (req, res) => {
 
 
-function buildMap (){
+function buildMap (markers){
   var baseURL = 'https://maps.googleapis.com/maps/api/staticmap?';
   var center = "Denver";
   var zoom = "13";
   var size = "600x343";
   var type = 'roadmap';
   var key = "AIzaSyB3oJKic9ULZQc0duyVqEubBrrlOPS4ktg";
-  var markers = createMarkers();
   var marker = "color:blue%7Clabel:S%7C31.74032,-106.32685";
 
   var encodedPath = "}mx`Ept`hStC|BgEfIXTYf@_B~C}@`BYh@@d@@F@D@Bl@f@FBFBD?D?PCnCkFvDcH`@y@l@kAl@oArD_HvCsF|C{FVe@pCeFrEwIlByDz@}Ap@oA\s@PYZm@JS^s@f@_AlEkIt@qAj@gA|BeEn@iAd@{@HOBG@E?GACHMBCfAiB";
@@ -164,7 +163,6 @@ function buildMap (){
   buildTemplate(mapURL);
 };
 
-buildMap();
 
 function compilePath (encodedPath) {
   var ary = polyline.decode(encodedPath);
@@ -186,13 +184,17 @@ function createMarkers () {
     .lessThan('date', m)
     .exec(function(err, res) {
       console.log(res);
+
       var places = res.data;
       for (var i = 0; i < places.length; i++) {
           markerString = markerString + "&markers=color:blue|label:" + i + "|" + places[i].coords.latitude + "," + places[i].coords.longitude
       }
-      return markerString;
+
+      buildMap(markerString)
     })
 };
+
+createMarkers();
 
 
 function buildTemplate (map){
