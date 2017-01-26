@@ -174,6 +174,8 @@ function compilePath (encodedPath) {
   return p
 };
 
+var places;
+
 function createMarkers () {
   var d = moment().subtract(10, 'days').toDate();
   var m = moment().subtract(3, 'days').toDate();
@@ -182,15 +184,16 @@ function createMarkers () {
   stamplay.Query('object','place')
     .greaterThan('date', d)
     .lessThan('date', m)
+    .sortAscending("date")
     .exec(function(err, res) {
-      console.log(res);
+      //console.log(res);
 
-      var places = res.data;
+     places = res.data;
       for (var i = 0; i < places.length; i++) {
           markerString = markerString + "&markers=color:blue|label:" + i + "|" + places[i].coords.latitude + "," + places[i].coords.longitude
       }
 
-      buildMap(markerString)
+      buildMap(markerString);
     })
 };
 
