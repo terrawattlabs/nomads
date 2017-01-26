@@ -152,8 +152,8 @@ function buildMap (){
   var size = "600x343";
   var type = 'roadmap';
   var key = "AIzaSyB3oJKic9ULZQc0duyVqEubBrrlOPS4ktg";
-  var marker = "color:blue%7Clabel:S%7C40.702147,-74.015794";
-  var path = "ewxrFxcydSYIIf@Gb@dF~ACDEHEDMHo@\q@^e@TC?aBc@G^QxA\@X?R?@AF?JCHAPGLELGJGVQNGJ?D?D@D@FB@@\Zf@_Ab@s@h@_Az@yAr@sAVc@l@oARc@Rk@Nc@HWNg@\sAtAyFXmAb@iBPo@\yAtAeGLk@?A@OXiAPm@X}@Ro@Vq@^cAtBgF`D}HhAmCn@}AnB{Ef@mANYN]Ra@JSR]Xc@LQRYPUZ]`AkAdBqBFCPQpA{AlAyAx@_AzAiBdBqBNQ|AiBf@m@hAkAp@q@TUr@m@r@i@LITOROJENIf@Ux@_@n@WkK|GGFFIEF";
+  var marker = "color:blue%7Clabel:S%7C31.74032,-106.32685";
+  var path = "}mx`Ept`hStC|BgEfIXTYf@_B~C}@`BYh@@d@@F@D@Bl@f@FBFBD?D?PCnCkFvDcH`@y@l@kAl@oArD_HvCsF|C{FVe@pCeFrEwIlByDz@}Ap@oA\s@PYZm@JS^s@f@_AlEkIt@qAj@gA|BeEn@iAd@{@HOBG@E?GACHMBCfAiB";
 
   var mapURL = baseURL + "&size=" + size + "&maptype=" + type + "&markers=" + marker + "&key=" + key;
   buildTemplate(mapURL);
