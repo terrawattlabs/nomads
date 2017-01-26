@@ -152,6 +152,7 @@ function buildMap (){
   var size = "600x343";
   var type = 'roadmap';
   var key = "AIzaSyB3oJKic9ULZQc0duyVqEubBrrlOPS4ktg";
+  var markers = createMarkers();
   var marker = "color:blue%7Clabel:S%7C31.74032,-106.32685";
 
   var encodedPath = "}mx`Ept`hStC|BgEfIXTYf@_B~C}@`BYh@@d@@F@D@Bl@f@FBFBD?D?PCnCkFvDcH`@y@l@kAl@oArD_HvCsF|C{FVe@pCeFrEwIlByDz@}Ap@oA\s@PYZm@JS^s@f@_AlEkIt@qAj@gA|BeEn@iAd@{@HOBG@E?GACHMBCfAiB";
@@ -159,7 +160,7 @@ function buildMap (){
 
   var string_new = encodedPath.replace("\\\\", "\\")
 
-  var mapURL = baseURL + "&size=" + size + "&maptype=" + type + "&markers=" + marker + "&path=color:0x0000ff|weight:5|enc:" + string_new + "&key=" + key;
+  var mapURL = baseURL + "&size=" + size + "&maptype=" + type + markers + "&path=color:0x0000ff|weight:5|enc:" + string_new + "&key=" + key;
   buildTemplate(mapURL);
 };
 
@@ -173,6 +174,29 @@ function compilePath (encodedPath) {
     p = p + "|" + ary[i][0] + "," + ary[i][1];
   };
   return p
+};
+
+function createMarkers () {
+  var d = moment().subtract(10, 'days').toDate();
+  var m = moment().subtract(3, 'days').toDate();
+  var markerString = "";
+
+  stamplay.Query('object','place')
+    .greaterThan('date', d)
+    .lessThan('date', m)
+    .exec()
+    .then(function(res) {
+      console.log(res);
+      var places = res.data;
+      for (var i = 0; i < places.length; i++) {
+          markerString = markerString + "&markers=color:blue|label:" + i + "|" + places[i].coords.latitude + "," + places[i].coords.longitude
+      }
+      return markerString;
+      // success
+    }, function(err) {
+      console.log(err);
+      // error
+    })
 };
 
 
