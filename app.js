@@ -190,7 +190,8 @@ function createMarkers () {
 
      places = res.data;
       for (var i = 0; i < places.length; i++) {
-          markerString = markerString + "&markers=color:blue|label:" + i + "|" + places[i].coords.latitude + "," + places[i].coords.longitude
+          var number = i + 1;
+          markerString = markerString + "&markers=color:blue|label:" + number + "|" + places[i].coords.latitude + "," + places[i].coords.longitude
       }
 
       buildMap(markerString);
@@ -211,7 +212,8 @@ function buildTemplate (map){
   var newsletter = new EmailTemplate(templateDir)
   var data = {
     username: "weresovancy",
-    imgURL: map
+    imgURL: map,
+    p: places
    };
   newsletter.render(data, function (err, result) {
        console.log(err);
