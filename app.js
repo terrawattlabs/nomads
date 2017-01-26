@@ -174,7 +174,7 @@ function compilePath (encodedPath) {
   return p
 };
 
-var places;
+var places = [];
 
 function createMarkers () {
   var d = moment().subtract(10, 'days');
