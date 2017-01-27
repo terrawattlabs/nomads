@@ -198,7 +198,7 @@ function createMarkers () {
               markerString = markerString + "&markers=color:blue|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
               places.push(res.data[i]);
               places[lTracking].let = letter;
-              places[prettyDate] = moment(res.data[i].date).format("MMM Do")
+              places[lTracking].prettyDate = moment(res.data[i].date).format("MMM Do")
               lTracking = lTracking + 1;
             } else {
          
