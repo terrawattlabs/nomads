@@ -177,8 +177,8 @@ function compilePath (encodedPath) {
 var places = [];
 
 function createMarkers () {
-  var d = moment().subtract(10, 'days');
-  var m = moment().subtract(3, 'days');
+  var d = moment().subtract(17, 'days');
+  var m = moment().subtract(1, 'days');
   var markerString = "";
 
   stamplay.Query('object','place')
@@ -188,8 +188,8 @@ function createMarkers () {
 
       var lTracking = 0;
       for (var i = 0; i < res.data.length; i++) {
-          var gt = moment().subtract(10, 'days');
-          var lt = moment().subtract(3, 'days');
+          var gt = moment().subtract(17, 'days');
+          var lt = moment().subtract(1, 'days');
 
 
             if (i > 0) {
