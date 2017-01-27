@@ -212,7 +212,7 @@ function createMarkers () {
           
             if (placeDate >= gt && placeDate <= lt) {
               var letter = getLetter(lTracking);
-              markerString = markerString + "&markers=color:#4A90E2|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
+              markerString = markerString + "&markers=color:blue|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
               places.push(res.data[i]);
               places[lTracking].let = letter;
               places[lTracking].prettyDate = moment(res.data[i].date).format("MMM Do")
