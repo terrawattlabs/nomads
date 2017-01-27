@@ -285,7 +285,7 @@ function buildTemplate (map){
        
             var helper = require('sendgrid').mail;
             var from_email = new helper.Email('jpdean@umich.edu');
-            var to_email = new helper.Email('hello@jackpdean.com');
+            var to_email = new helper.Email('jack@clearestimates.com');
             var subject = 'Hello World from the SendGrid Node.js Library!';
             var content = new helper.Content(
               'text/html', result.html);
