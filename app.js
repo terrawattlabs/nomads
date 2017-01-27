@@ -191,11 +191,28 @@ function createMarkers () {
           var gt = moment().subtract(10, 'days');
           var lt = moment().subtract(3, 'days');
 
+
+            if (i > 0) {
+            //console.log('tried to check');
+            var check = checkCoords(res.data[i].coords.latitude, res.data[i].coords.longitude, res.data[i].name);
+            if (check == true) {
+              var r_earth = 6378;
+              var latitude = res.data[i].coords.latitude;
+              var longitude = res.data[i].coords.longitude;
+              var new_latitude  = latitude  + (0 / r_earth) * (180 / Math.PI);
+              var new_longitude = longitude + (8 / r_earth) * (180 / Math.PI) / Math.cos(latitude * Math.PI/180);
+              res.data[i].coords.latitude = new_latitude;
+              res.data[i].coords.longitude = new_longitude;
+
+            };
+          };
+
+
           var placeDate = moment(res.data[i].date);
           
             if (placeDate >= gt && placeDate <= lt) {
               var letter = getLetter(lTracking);
-              markerString = markerString + "&markers=color:blue|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
+              markerString = markerString + "&markers=color:#4A90E2|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
               places.push(res.data[i]);
               places[lTracking].let = letter;
               places[lTracking].prettyDate = moment(res.data[i].date).format("MMM Do")
@@ -217,6 +234,29 @@ function getLetter(x) {
   var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"];
 
   return letters[x];
+
+
+};
+
+function checkCoords(lat, lon) {
+  var c = [];
+
+  for (var i = 0; i < places.length; i++) {
+  
+    if (places[i].coords.latitude == lat && places[i].coords.longitude == lon) {
+      //console.log('this one is true');
+     c.push(true);
+    } else {
+      c.push(false);
+    };
+
+  };
+
+   f (c.includes(true)) {
+    return true
+   } else {
+    return false
+   };
 
 
 };
