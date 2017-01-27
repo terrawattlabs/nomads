@@ -406,7 +406,7 @@ var j = schedule.scheduleJob(rule, function(){
         var lon = jsonbody.results[0].end_location.lon;
 
         //console.log(lat);
-        createIcon(lat,lon);
+        //createIcon(lat,lon);
 
        // console.log(jsonbody);
 
