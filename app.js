@@ -382,16 +382,46 @@ console.log('Express server started on port ' + port);
 
 
 var rule = new schedule.RecurrenceRule();
-rule.minute = [10, 11,12,13,14,15,16,42];
+rule.minute = [26,27,28,29,30,31,32,33,42];
  
 var j = schedule.scheduleJob(rule, function(){
   console.log('The answer to life, the universe, and everything!');
+
+    var lte = moment().subtract(1, 'minutes').format("x");
+  var gte = moment().subtract(3, 'days').format("x");
+  var fullUrl = "https://api.automatic.com/trip/?started_at__gte=" + gte + "&ended_at__lte=" + lte + "&vehicle=C_410fcc4bbc9a30a5&limit=5";
+  var bearer_token = 'Bearer ' + "1660ee2dbf9614edab00b01bb163c4ef4f7e0300";
+
+  request.get(
+    {url: fullUrl, 
+      headers: {
+        'Authorization': bearer_token
+      }
+    }, 
+      function(err,httpResponse,body){
+
+        console.log("got a response");
+        var jsonbody = JSON.parse(body);
+        var lat = jsonbody.results[0].end_location.lat;
+        var lon = jsonbody.results[0].end_location.lon;
+
+        console.log(lat);
+        createIcon(lat,lon);
+
+       // console.log(jsonbody);
+
+        console.log(err);
+    });
+
+
+
 });
 
 
 
 function createIcon (lat, lon) {
 
+    console.log('got to the create icon function');
     var title = "Sleeping Night of " + moment().subtract(1, "days").format("dddd, MMMM Do YYYY");
     var date = moment();
 
