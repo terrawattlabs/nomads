@@ -252,7 +252,7 @@ function checkCoords(lat, lon) {
 
   };
 
-   f (c.includes(true)) {
+   if (c.includes(true)) {
     return true
    } else {
     return false
