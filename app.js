@@ -385,7 +385,7 @@ var rule = new schedule.RecurrenceRule();
 rule.hour = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
  
 var j = schedule.scheduleJob(rule, function(){
-  console.log('The answer to life, the universe, and everything!');
+  console.log('A different thing');
 
     var lte = moment().subtract(1, 'minutes').format("x");
   var gte = moment().subtract(3, 'days').format("x");
@@ -422,7 +422,7 @@ var j = schedule.scheduleJob(rule, function(){
 function createIcon (lat, lon) {
 
     //console.log('got to the create icon function');
-    var title = "Sleeping Night of " + moment().subtract(1, "days").format("dddd, MMMM Do YYYY");
+    var title = "Sleepy Time of " + moment().subtract(1, "days").format("dddd, MMMM Do YYYY");
     var date = moment();
 
     var data = {
