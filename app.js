@@ -382,7 +382,7 @@ console.log('Express server started on port ' + port);
 
 
 var rule = new schedule.RecurrenceRule();
-rule.minute = [26,27,28,29,30,31,32,33,42];
+rule.hour = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
  
 var j = schedule.scheduleJob(rule, function(){
   console.log('The answer to life, the universe, and everything!');
@@ -405,7 +405,7 @@ var j = schedule.scheduleJob(rule, function(){
         var lat = jsonbody.results[0].end_location.lat;
         var lon = jsonbody.results[0].end_location.lon;
 
-        console.log(lat);
+        //console.log(lat);
         createIcon(lat,lon);
 
        // console.log(jsonbody);
@@ -421,7 +421,7 @@ var j = schedule.scheduleJob(rule, function(){
 
 function createIcon (lat, lon) {
 
-    console.log('got to the create icon function');
+    //console.log('got to the create icon function');
     var title = "Sleeping Night of " + moment().subtract(1, "days").format("dddd, MMMM Do YYYY");
     var date = moment();
 
@@ -439,7 +439,7 @@ function createIcon (lat, lon) {
 
   stamplay.Object('place').save(data, function(error, result){
     console.log(error);
-    console.log(result);
+    //console.log(result);
 });
 
 };
