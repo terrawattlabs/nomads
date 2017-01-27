@@ -198,6 +198,7 @@ function createMarkers () {
               markerString = markerString + "&markers=color:blue|label:" + letter + "|" + res.data[i].coords.latitude + "," + res.data[i].coords.longitude;
               places.push(res.data[i]);
               places[lTracking].let = letter;
+              places[prettyDate] = moment(res.data[i].date).format("MMM Do")
               lTracking = lTracking + 1;
             } else {
          
@@ -230,10 +231,6 @@ function buildTemplate (map){
   var templateDir = path.join(__dirname, 'templates', 'weekly');
   var newsletter = new EmailTemplate(templateDir);
 
-  for (var i = places.length - 1; i >= 0; i--) {
-    var t = moment(places[i].date).format("MMM Do");
-    places[i].prettyDate = t;
-  };
 
   var data = {
     username: "weresovancy",
